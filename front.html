@@ -6,13 +6,15 @@
 </head>
 <body>
 
-<h1>Сохранить текст</h1>
-
 <input type="text" id="inputField" placeholder="Введите текст">
-<button id="sent">Отправить</button>
+<button id="send">Отправить</button>
+<br><br>
+<input type="text" id="readInput" placeholder="Введите текст">
+<button id="sendAndRead">Отправить и/или вывести результат</button>
+<textarea id="resultField" placeholder="Результат" readonly></textarea>
 
 <script>
-    document.getElementById("sent").addEventListener("click", async () =>
+    document.getElementById("send").addEventListener("click", async () =>
     {
         const text = document.getElementById("inputField").value;
 
@@ -22,6 +24,19 @@
         });
 
         alert("Отправлено");
+    });
+    document.getElementById("sendAndRead").addEventListener("click", async () =>
+    {
+        const text = document.getElementById("readInput").value;
+
+        await fetch("http://localhost:8080/save", {
+            method: "POST",
+            body: text
+        });
+
+        const response = await fetch("http://localhost:8080/read");
+        const result = await response.text();
+        document.getElementById("resultField").value = result;
     });
 </script>
 
