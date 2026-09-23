@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab1</title>
+</head>
+<body>
+
+<h1>Сохранить текст</h1>
+
+<input type="text" id="inputField" placeholder="Введите текст">
+<button id="sent">Отправить</button>
+
+<script>
+    document.getElementById("sent").addEventListener("click", async () =>
+    {
+        const text = document.getElementById("inputField").value;
+
+        await fetch("http://localhost:8080/save", {
+            method: "POST",
+            body: text
+        });
+
+        alert("Отправлено");
+    });
+</script>
+
+</body>
+</html>
